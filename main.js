@@ -236,7 +236,7 @@ function filteration(){
     let new_products = products.filter(product =>
         (product.title).includes((input.value).trim()) &&
         (selectedCategory === "category" || product.category === selectedCategory) &&
-        (parseInt(product.price) <= parseInt(price.value) || parseInt(price.value) == 0));  
+        (parseInt(product.price) <= parseInt(price.value) || parseInt(price.value) == 0 || price.value == ''));  
     // بنخلي الديف فاضيه عشان نحط نتايج السيرش
     productContainer.innerHTML = ''
     // لو عدد المنتاجات الي لقينها اكتر من 0 اعرضهم
