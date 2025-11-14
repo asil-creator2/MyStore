@@ -1,0 +1,183 @@
+/* Basic reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Smooth theme transitions (no JS changes needed) */
+:root{
+	--theme-transition-time: 220ms;
+	--theme-transition-ease: cubic-bezier(.4,0,.2,1);
+}
+/* Apply transitions to the elements that change between light/dark */
+body,
+.navbar,
+.nav-inner,
+.nav-brand,
+.nav-links a,
+.nav-links,
+.search-wrap,
+.search-input,
+.card,
+.main-container,
+.theme,
+.case {
+	transition: background-color var(--theme-transition-time) var(--theme-transition-ease),
+				color var(--theme-transition-time) var(--theme-transition-ease),
+				box-shadow var(--theme-transition-time) var(--theme-transition-ease),
+				border-color var(--theme-transition-time) var(--theme-transition-ease),
+				transform var(--theme-transition-time) var(--theme-transition-ease);
+}
+
+.light { font-family: Arial, Helvetica, sans-serif; background: #f5f6f8; color: #222; }
+.dark { font-family: Arial, Helvetica, sans-serif; background: #000000; color: #f1f5f9; }
+
+/* Navbar */
+.navbar { background: #fff; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06); }
+.dark .navbar{
+	/* Dark-mode navbar: match the dark page background but slightly elevated */
+	background: #071029; /* deep navy */
+	box-shadow: 0 2px 8px rgba(2,6,23,0.6);
+}
+.dark .nav-inner{ /* keep spacing/layout the same */
+	max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 16px; padding: 10px 16px;
+}
+.dark .nav-brand{ color: #f1f5f9; }
+.dark .nav-links a{ color: #cbd5e1; }
+.dark .nav-links a:hover{ background: rgba(255,255,255,0.04); color: #ffffff; }
+.dark .nav-toggle{ color: #f1f5f9; }
+.dark .search-wrap{ background: rgba(255,255,255,0.03); }
+.dark .search-input{ color: #e6eefc; }
+.dark .nav-links{ /* mobile dropdown background when dark */
+	background: #071029;
+	border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 16px; padding: 10px 16px; }
+.nav-brand { font-weight: 800; font-size: 1.15rem; color: #0f172a; text-decoration: none; }
+.nav-links { display: flex; gap: 12px; margin-left: 8px; }
+.nav-links a { color: #334155; text-decoration: none; padding: 6px 8px; border-radius: 6px; font-weight: 600; }
+.nav-links a:hover { background: #eef2ff; color: #3730a3; }
+.nav-toggle { display: none; background: transparent; border: none; font-size: 20px; cursor: pointer; margin-left: auto; }
+
+.search-form { margin-left: auto; display: flex; align-items: center; }
+.search-wrap { display: flex; align-items: center; gap: 8px; background: #f1f5f9; padding: 6px 8px; border-radius: 999px; flex-wrap: wrap; }
+.search-input { padding: 8px 12px; border: none; background: transparent; outline: none; min-width: 180px; max-width: 420px; }
+
+/* Visually hidden helper for accessible labels */
+.visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }
+
+/* Styled search button (magnifier) */
+.search-btn { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 999px; border: none; background: linear-gradient(180deg,#2563eb,#1e40af); color: #fff; cursor: pointer; box-shadow: 0 6px 12px rgba(37,99,235,0.12); transition: transform .08s ease, box-shadow .12s ease, background .12s ease; }
+.search-btn svg { display: block; color: #fff; }
+.search-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 16px rgba(37,99,235,0.16); }
+.search-btn:active { transform: translateY(0); box-shadow: 0 4px 8px rgba(37,99,235,0.12); }
+.search-btn:focus { outline: 3px solid rgba(37,99,235,0.18); outline-offset: 2px; }
+
+/* If you prefer a more subtle style, replace the background with a lighter tone */
+.search-btn.subtle { background: #e6eefc; color: #1e3a8a; box-shadow: none; }
+
+/* Dropdown inside search area (use smaller compact button) */
+.search-wrap .dropdown { display: inline-block; }
+.search-wrap .dropdown .btn {
+		background: linear-gradient(180deg,#2563eb,#1e40af);
+		color: #fff;
+		padding: 6px 10px;
+		height: 36px;
+		border-radius: 999px;
+		border: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+}
+.search-wrap .dropdown .btn:hover { filter: brightness(.95); }
+
+/* Price input styling to match the rounded controls */
+#price { width: 72px; height: 36px; padding: 6px 8px; border-radius: 999px; border: none; background: #fff; box-shadow: 0 1px 3px rgba(2,6,23,0.06); }
+
+/* Ensure the search area fits on small screens: make controls wrap and be usable */
+@media (max-width: 720px) {
+	.search-wrap { width: 100%; justify-content: flex-end; gap: 6px; }
+	.search-input { flex: 1 1 160px; min-width: 120px; }
+	.search-wrap .dropdown, #price { order: 1; }
+	.search-btn { order: 2; }
+}
+
+/* Mobile */
+@media (max-width: 720px) {
+	.nav-toggle { display: block; }
+	.nav-links { position: absolute; top: 64px; left: 0; right: 0; background: #fff; flex-direction: column; gap: 0; padding: 8px 16px; transform: translateY(-10px); opacity: 0; pointer-events: none; transition: opacity .18s ease, transform .18s ease; border-bottom: 1px solid #f1f5f9; }
+	.nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+	.nav-links a { padding: 10px 0; border-radius: 0; }
+	.search-input { min-width: 120px; }
+}
+
+/* Main container */
+.main-container { max-width: 1100px; margin: 20px auto; padding: 0 16px 48px; }
+
+/* Product grid */
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 16px; }
+.card { background: #fff; border-radius: 10px; padding: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); display: flex; flex-direction: column; height: 100%; }
+.card img { width: 100%; height: 160px; object-fit: contain; margin-bottom: 8px; }
+.card .title { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; color: #111; }
+.card .price { color: #1e88e5; font-weight: 700; margin-bottom: 6px; }
+.card .category { font-size: 0.85rem; color: #666; margin-top: auto; }
+
+/* Small screens tweaks */
+@media (max-width: 520px) {
+	.search-input { min-width: 140px; }
+	.card img { height: 130px; }
+}
+
+/* Empty state */
+.empty { padding: 24px; text-align: center; color: #666; }
+
+#category-select{
+    background-color: #2563eb;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.dark{
+    background-color: #040347;
+    color: #f1f5f9;
+
+
+}
+
+.dark .card{
+    background-color: #1e1e2f;
+    color: #f1f5f9;
+}
+
+
+.theme{
+	border: 3px solid #2563eb;
+	background-color: transparent;
+	color: #000000;
+	cursor: pointer;
+	font-size: 1.2rem;
+	padding:5px;
+	border-radius: 60px;
+}
+
+.case{
+	text-align: center;
+
+	/* Center the element exactly in the viewport */
+	position: fixed; /* fixed to viewport so it's always centered */
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 9999; /* appear above other content */
+
+	/* Make sure long content wraps and doesn't overflow */
+	max-width: 90vw;
+	padding: 12px 16px;
+	font-size: 70px;
+}
+
+
+.light .case{
+	color: #000000;
+}

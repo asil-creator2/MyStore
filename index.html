@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body class="dark">
+    <nav class="navbar" role="navigation">
+        <div class="nav-inner">
+            <a class="nav-brand" href="#">MyStore</a>
+
+            <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+
+            <div class="nav-links" aria-hidden="true">
+                <a href="#">Home</a>
+                <a href="#">Shop</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <form class="search-form" onsubmit="return false;" role="search">
+                <div class="search-wrap">
+                    <input id="searchInput" class="search-input" type="search" placeholder="Search product title" aria-label="Search products">
+
+                    </button>
+                    
+                    <select id="category-select" name="Categories">
+                        <option value="category">Category</option>
+                        <option value="men's clothing">Men's Clothing</option>
+                        <option value="jewelery">jewelery</option>
+                        <option value="electronics">Electronics</option>
+                    </select>
+                    <input id="price" type="number" style="width: 60px; height: 40px;" value=0>
+                </div>
+            </form>
+            <!-- Theme toggle -->
+            <button id="themes" class="theme">🌞</button>
+        </div>
+    </nav>
+    <main class="main-container">
+        <div id="productCards" class="product-grid"></div>
+    </main>
+
+    <script src="main.js"></script>
+
+</body>
+</html>
