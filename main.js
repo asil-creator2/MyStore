@@ -183,7 +183,7 @@ const products = [
 ];
 
 // رسالة ترحيب
-alert(` Welcome ${prompt('what is You Name ? ')} To The My Store`)
+alert(` Welcome ${prompt('what is Your Name ? ')} To The Soso Store`)
 
 
 
@@ -269,7 +269,7 @@ function removeFromCart(id){
 }
 
 
-// لو ضغك على العربه عشان يشوف الايتمز الي فيها
+// لو ضغط على العربه عشان يشوف الايتمز الي فيها
 function cartClick() {
     productContainer.textContent = '';
     cartContainer.textContent = '';   
@@ -284,16 +284,12 @@ function cartClick() {
     });
 }
 
-
-
 // لو ضغط الهوم عشان يرجع لصفحة المنتجات
 function showHome() {
     cartContainer.textContent = '';       
     productContainer.textContent = '';    
     combineCards(products);               
 }
-
-
 
 // بيشغل الكود كامل
 function run(){
