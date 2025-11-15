@@ -194,6 +194,14 @@ let productContainer = document.getElementById('productCards')
 let categorySelect = document.getElementById('category-select')
 let price = document.getElementById('price')
 let theme = document.getElementById('themes')
+let cartBotton = document.getElementsByClassName('button')
+let cartPage = document.getElementById('cart')
+let cartContainer = document.getElementById('cartContainer')
+let homeLink = document.getElementById('homeLink')
+
+
+let cartItems = [];
+
 // فاريبل بيخذن الصنف الي المستخدم ضغط عليه
 let selectedCategory = "category";
 // حالة الموقع غامق ولا فاتح
@@ -211,13 +219,14 @@ function themeConvertor(){
 }
 
 // بيعمل كارت
-function makeCard(product){
-    productContainer.innerHTML += `
+function makeCard(product,container,isInCart = false){
+    container.innerHTML += `
     <div class = 'card'>
         <img src = ${product.image}>
         <h1 class = 'title'>${product.title}</h1>
         <h2 class = 'price'>${product.price}</h2>
         <h2 class = 'category'>${product.category}</h2>
+        <button class="button" data-id="${product.id}">${isInCart ? 'Remove from Cart' : 'Add to Cart'}</button>
     </div>
     `
 }
@@ -226,17 +235,17 @@ function makeCard(product){
 function combineCards(products){
   // لوب لعمل الكروت كلها
     products.forEach(product => {
-        makeCard(product)
+        makeCard(product,productContainer)
     })
 }
 
 // بيعمل الفلتر
 function filteration(){
   // فلتر لسيرش المستخدم
-    let new_products = products.filter(product =>
-        (product.title).includes((input.value).trim()) &&
-        (selectedCategory === "category" || product.category === selectedCategory) &&
-        (parseInt(product.price) <= parseInt(price.value) || parseInt(price.value) == 0 || price.value == ''));  
+  let new_products = products.filter(product => 
+      product.title.toLowerCase().includes(input.value.trim().toLowerCase()) &&
+      (selectedCategory === "category" || product.category === selectedCategory) &&
+      (parseInt(product.price) <= parseInt(price.value)|| price.value == ''));
     // بنخلي الديف فاضيه عشان نحط نتايج السيرش
     productContainer.innerHTML = ''
     // لو عدد المنتاجات الي لقينها اكتر من 0 اعرضهم
@@ -249,10 +258,61 @@ function filteration(){
     }
 }
 
+// بيضيف للعربه
+function addToCart(product){
+    cartItems.push(product)
+}
+
+// بيشيل من العربه
+function removeFromCart(id){
+    cartItems = cartItems.filter(product => product.id !== id);
+}
+
+
+// لو ضغك على العربه عشان يشوف الايتمز الي فيها
+function cartClick() {
+    productContainer.textContent = '';
+    cartContainer.textContent = '';   
+
+    if(cartItems.length === 0){
+        cartContainer.innerHTML ='<h2 class = "case">العربة فارغة</h2>';
+        return;
+    }
+
+    cartItems.forEach(product => {
+        makeCard(product, cartContainer,true);
+    });
+}
+
+
+
+// لو ضغط الهوم عشان يرجع لصفحة المنتجات
+function showHome() {
+    cartContainer.textContent = '';       
+    productContainer.textContent = '';    
+    combineCards(products);               
+}
+
+
+
 // بيشغل الكود كامل
 function run(){
     combineCards(products);
+    document.addEventListener('click', function (clickedElement){
+      if (clickedElement.target.classList.contains('button')){
+        let id = parseInt(clickedElement.target.dataset.id)
+        let clickedProduct = products.find(product => product.id === id);
+        if (clickedElement.target.textContent === 'Add to Cart' ){
+          addToCart(clickedProduct)
+        }
+        else if (clickedElement.target.textContent === "Remove from Cart"){
+          removeFromCart(id)
     
+        }
+      }
+})
+    homeLink.addEventListener('click', showHome);
+    cartPage.addEventListener('click',cartClick)
     // 1. حدث تغيير الصنف
     categorySelect.addEventListener('change', function(){
         selectedCategory = this.value;

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
 
 </head>
 <body class="dark">
@@ -15,10 +17,10 @@
             <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">☰</button>
 
             <div class="nav-links" aria-hidden="true">
-                <a href="#">Home</a>
+                <a href="#" id="homeLink">Home</a>
                 <a href="#">Shop</a>
                 <a href="#">About</a>
-                <a href="#">Contact</a>
+                <a id="cart"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
             </div>
 
             <form class="search-form" onsubmit="return false;" role="search">
@@ -32,8 +34,9 @@
                         <option value="men's clothing">Men's Clothing</option>
                         <option value="jewelery">jewelery</option>
                         <option value="electronics">Electronics</option>
+                        <option value="women's clothing">Woman's Clothes</option>
                     </select>
-                    <input id="price" type="number" style="width: 60px; height: 40px;" value=0>
+                    <input id="price" type="number" style="width: 60px; height: 40px;" value=''>
                 </div>
             </form>
             <!-- Theme toggle -->
@@ -43,7 +46,7 @@
     <main class="main-container">
         <div id="productCards" class="product-grid"></div>
     </main>
-
+    <div id="cartContainer"></div>
     <script src="main.js"></script>
 
 </body>
